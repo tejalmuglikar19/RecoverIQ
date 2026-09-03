@@ -119,6 +119,15 @@
       <div class="sidebar-footer">
         <ul class="nav-list footer-nav">
           <li class="nav-item">
+            <button class="nav-link" data-view="profile">
+              <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              <span class="nav-label">Profile</span>
+            </button>
+          </li>
+          <li class="nav-item">
             <button class="nav-link" data-view="settings">
               <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="3"></circle>
@@ -130,13 +139,13 @@
         </ul>
 
         <!-- MERCHANT PROFILE AREA -->
-        <div class="merchant-profile-card">
+        <div class="merchant-profile-card clickable-profile" data-view="profile" role="button" tabindex="0" title="View Merchant Profile">
           <div class="merchant-avatar">
             <span>DM</span>
           </div>
           <div class="merchant-info">
             <div class="merchant-name">Demo Merchant</div>
-            <div class="merchant-tier">Enterprise &bull; MID-8492</div>
+            <div class="merchant-tier">Enterprise &bull; MER_DEMO_48291</div>
           </div>
           <div class="merchant-status-dot" title="Active Connection"></div>
         </div>
@@ -190,6 +199,12 @@
               </svg>
             </span>
             <span>Run AI Recovery &rarr;</span>
+          </button>
+
+          <!-- TOP-RIGHT PROFILE AVATAR BUTTON -->
+          <button class="header-profile-btn" data-view="profile" id="headerProfileBtn" title="Merchant Profile" aria-label="Open Merchant Profile">
+            <div class="header-avatar-badge">DM</div>
+            <span class="header-profile-status-dot"></span>
           </button>
         </div>
       </header>
@@ -979,6 +994,258 @@
           </div>
         </section>
 
+        <!-- ================= VIEW 7: MERCHANT PROFILE ================= -->
+        <section class="view-panel" id="view-profile">
+          
+          <!-- 2. PROFILE HEADER CARD -->
+          <div class="dashboard-card profile-hero-card">
+            <div class="profile-hero-content">
+              <div class="profile-abstract-avatar" aria-label="Merchant Logo">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                  <path d="M2 17l10 5 10-5"></path>
+                  <path d="M2 12l10 5 10-5"></path>
+                </svg>
+              </div>
+              <div class="profile-main-meta">
+                <div class="profile-name-row">
+                  <h2 class="profile-name" id="displayBusinessNameHero">Demo Merchant</h2>
+                  <span class="badge-status badge-recovered">
+                    <span class="badge-dot"></span>
+                    Active
+                  </span>
+                </div>
+                <div class="profile-email-row">
+                  <a href="mailto:merchant@demo.recoveriq.com" class="profile-email" id="displayEmailHero">merchant@demo.recoveriq.com</a>
+                </div>
+                <div class="profile-tags-row">
+                  <div class="profile-pill-meta">
+                    <span class="meta-label">Merchant ID:</span>
+                    <span class="meta-val tabular-nums">MER_DEMO_48291</span>
+                  </div>
+                  <div class="profile-pill-meta">
+                    <span class="meta-label">Member since:</span>
+                    <span class="meta-val">January 2026</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. BUSINESS INFORMATION -->
+          <div class="dashboard-card">
+            <div class="card-header-flex">
+              <div>
+                <h3 class="card-title">Business Information</h3>
+                <p class="card-subtitle">Registered merchant identity and regional settlement parameters</p>
+              </div>
+              <button class="btn-secondary-action btn-sm" id="btnEditBusinessInfo">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+                <span>Edit Information</span>
+              </button>
+            </div>
+
+            <div class="info-details-grid">
+              <div class="info-cell">
+                <span class="info-k">Business Name</span>
+                <span class="info-v" id="fieldBusinessName">Demo Merchant</span>
+              </div>
+              <div class="info-cell">
+                <span class="info-k">Industry</span>
+                <span class="info-v" id="fieldIndustry">E-commerce</span>
+              </div>
+              <div class="info-cell">
+                <span class="info-k">Business Email</span>
+                <span class="info-v" id="fieldEmail">merchant@demo.recoveriq.com</span>
+              </div>
+              <div class="info-cell">
+                <span class="info-k">Country</span>
+                <span class="info-v" id="fieldCountry">India</span>
+              </div>
+              <div class="info-cell">
+                <span class="info-k">Default Currency</span>
+                <span class="info-v" id="fieldCurrency">INR (&#8377;)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. RECOVERY CONFIGURATION SUMMARY -->
+          <div class="dashboard-card">
+            <div class="card-header-flex">
+              <div>
+                <h3 class="card-title">Recovery Configuration</h3>
+                <p class="card-subtitle">Current merchant recovery rules</p>
+              </div>
+              <button class="btn-secondary-action btn-sm" id="btnManagePoliciesFromProfile">
+                <span>Manage Policies &rarr;</span>
+              </button>
+            </div>
+
+            <div class="config-summary-grid">
+              <div class="config-metric-card">
+                <span class="config-metric-label">Maximum Attempts</span>
+                <span class="config-metric-val tabular-nums">3</span>
+                <span class="config-metric-sub">Retries per failed payment</span>
+              </div>
+
+              <div class="config-metric-card">
+                <span class="config-metric-label">Recovery Budget</span>
+                <span class="config-metric-val tabular-nums">&#8377;1,00,000</span>
+                <span class="config-metric-sub">Monthly gateway ceiling</span>
+              </div>
+
+              <div class="config-metric-card">
+                <span class="config-metric-label">Minimum Expected ROI</span>
+                <span class="config-metric-val tabular-nums">1.5&times;</span>
+                <span class="config-metric-sub">Recovery efficiency target</span>
+              </div>
+
+              <div class="config-metric-card">
+                <span class="config-metric-label">High-Value Threshold</span>
+                <span class="config-metric-val tabular-nums">&#8377;50,000</span>
+                <span class="config-metric-sub">Auto-escalation boundary</span>
+              </div>
+
+              <div class="config-metric-card">
+                <span class="config-metric-label">Human Approval</span>
+                <span class="config-metric-val text-amber">Required above threshold</span>
+                <span class="config-metric-sub">Finance desk verification</span>
+              </div>
+
+              <div class="config-metric-card">
+                <span class="config-metric-label">Stop After Failures</span>
+                <span class="config-metric-val tabular-nums">3</span>
+                <span class="config-metric-sub">Hard stop on consecutive declines</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. SECURITY & 6. PREFERENCES -->
+          <div class="profile-two-col-grid">
+            
+            <!-- SECURITY SECTION -->
+            <div class="dashboard-card">
+              <div class="card-header-simple">
+                <h3 class="card-title">Security</h3>
+              </div>
+              
+              <div class="security-list">
+                <div class="security-item">
+                  <div class="security-info">
+                    <span class="security-title">Password</span>
+                    <span class="security-desc">Last changed 30 days ago</span>
+                  </div>
+                  <button class="btn-secondary-action btn-sm" id="btnChangePassword">Change Password</button>
+                </div>
+
+                <div class="security-item">
+                  <div class="security-info">
+                    <span class="security-title">Two-Factor Authentication</span>
+                    <span class="security-desc text-emerald-sm">Enabled via Authenticator App</span>
+                  </div>
+                  <button class="btn-secondary-action btn-sm" id="btnManage2FA">Manage</button>
+                </div>
+
+                <div class="security-item">
+                  <div class="security-info">
+                    <span class="security-title">Active Sessions</span>
+                    <span class="security-desc">2 active sessions</span>
+                  </div>
+                  <button class="btn-secondary-action btn-sm" id="btnViewSessions">View Sessions</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- PREFERENCES SECTION -->
+            <div class="dashboard-card">
+              <div class="card-header-simple">
+                <h3 class="card-title">Preferences</h3>
+              </div>
+
+              <div class="preferences-list">
+                <div class="pref-toggle-row">
+                  <div class="pref-text">
+                    <span class="pref-title">Email Notifications</span>
+                    <span class="pref-desc">Critical alerts and batch execution reports</span>
+                  </div>
+                  <div class="toggle-switch active" id="toggleEmailNotif">
+                    <div class="toggle-handle"></div>
+                  </div>
+                </div>
+
+                <div class="pref-toggle-row">
+                  <div class="pref-text">
+                    <span class="pref-title">Recovery Alerts</span>
+                    <span class="pref-desc">Instant notification on high-value recovered payments</span>
+                  </div>
+                  <div class="toggle-switch active" id="toggleRecoveryAlerts">
+                    <div class="toggle-handle"></div>
+                  </div>
+                </div>
+
+                <div class="pref-toggle-row">
+                  <div class="pref-text">
+                    <span class="pref-title">Weekly Recovery Summary</span>
+                    <span class="pref-desc">Digest of recovered revenue vs revenue at risk</span>
+                  </div>
+                  <div class="toggle-switch active" id="toggleWeeklySummary">
+                    <div class="toggle-handle"></div>
+                  </div>
+                </div>
+
+                <div class="pref-select-row">
+                  <div class="pref-text">
+                    <span class="pref-title">Currency</span>
+                    <span class="pref-desc">Default display currency for all dashboards</span>
+                  </div>
+                  <div class="pref-select-box">
+                    <select id="prefCurrencySelect" class="clean-select">
+                      <option value="INR" selected>INR (&#8377;)</option>
+                      <option value="USD">USD ($)</option>
+                      <option value="EUR">EUR (&euro;)</option>
+                      <option value="GBP">GBP (&pound;)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="pref-select-row">
+                  <div class="pref-text">
+                    <span class="pref-title">Theme</span>
+                    <span class="pref-desc">Interface color contrast scheme</span>
+                  </div>
+                  <div class="theme-badge-current">
+                    <span class="theme-dot"></span>
+                    <span>Dark</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 7. DANGER ZONE / ACCOUNT SECTION -->
+          <div class="dashboard-card account-card-restrained">
+            <div class="account-action-row">
+              <div>
+                <h4 class="card-title-sm">Account</h4>
+                <p class="card-subtitle">Authenticated as merchant administrator</p>
+              </div>
+              <button class="btn-signout" id="btnSignOut">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                  <polyline points="16 17 21 12 16 7"></polyline>
+                  <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                <span>Sign Out</span>
+              </button>
+            </div>
+          </div>
+
+        </section>
+
       </main>
 
     </div>
@@ -1150,6 +1417,190 @@
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <!-- ================= MODAL 3: EDIT BUSINESS INFORMATION MODAL ================= -->
+  <div class="modal-overlay" id="editBusinessModalOverlay" aria-hidden="true">
+    <div class="modal-container profile-edit-modal" role="dialog" aria-modal="true" aria-labelledby="editBusinessTitle">
+      <div class="modal-header">
+        <div class="modal-title-lockup">
+          <span class="modal-badge-ai">Merchant Administration</span>
+          <h3 class="modal-title" id="editBusinessTitle">Edit Business Information</h3>
+        </div>
+        <button class="modal-close-btn" id="editBusinessCloseBtn" aria-label="Close modal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <form id="editBusinessForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="inputBusinessName">Business Name</label>
+            <input type="text" id="inputBusinessName" class="form-input" value="Demo Merchant" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inputIndustry">Industry</label>
+            <input type="text" id="inputIndustry" class="form-input" value="E-commerce" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inputEmail">Business Email</label>
+            <input type="email" id="inputEmail" class="form-input" value="merchant@demo.recoveriq.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inputCountry">Country</label>
+            <input type="text" id="inputCountry" class="form-input" value="India" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inputCurrency">Default Settlement Currency</label>
+            <select id="inputCurrency" class="form-input clean-select">
+              <option value="INR (₹)" selected>INR (₹)</option>
+              <option value="USD ($)">USD ($)</option>
+              <option value="EUR (€)">EUR (€)</option>
+              <option value="GBP (£)">GBP (£)</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-modal-secondary" id="editBusinessCancelBtn">Cancel</button>
+          <button type="submit" class="btn-primary-action btn-sm">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 4: CHANGE PASSWORD MODAL ================= -->
+  <div class="modal-overlay" id="passwordModalOverlay" aria-hidden="true">
+    <div class="modal-container profile-edit-modal" role="dialog" aria-modal="true" aria-labelledby="passwordModalTitle">
+      <div class="modal-header">
+        <div class="modal-title-lockup">
+          <span class="modal-badge-ai">Security</span>
+          <h3 class="modal-title" id="passwordModalTitle">Change Admin Password</h3>
+        </div>
+        <button class="modal-close-btn" id="passwordModalCloseBtn" aria-label="Close modal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <form id="changePasswordForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="inputCurrentPassword">Current Password</label>
+            <input type="password" id="inputCurrentPassword" class="form-input" placeholder="••••••••••••" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inputNewPassword">New Password</label>
+            <input type="password" id="inputNewPassword" class="form-input" placeholder="Minimum 12 characters" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inputConfirmPassword">Confirm New Password</label>
+            <input type="password" id="inputConfirmPassword" class="form-input" placeholder="Re-enter new password" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-modal-secondary" id="passwordModalCancelBtn">Cancel</button>
+          <button type="submit" class="btn-primary-action btn-sm">Update Password</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 5: 2FA SECURITY MODAL ================= -->
+  <div class="modal-overlay" id="twoFactorModalOverlay" aria-hidden="true">
+    <div class="modal-container profile-edit-modal" role="dialog" aria-modal="true" aria-labelledby="twoFactorModalTitle">
+      <div class="modal-header">
+        <div class="modal-title-lockup">
+          <span class="modal-badge-ai">Security</span>
+          <h3 class="modal-title" id="twoFactorModalTitle">Two-Factor Authentication</h3>
+        </div>
+        <button class="modal-close-btn" id="twoFactorModalCloseBtn" aria-label="Close modal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="diagnostic-banner">
+          <div class="diag-icon-wrapper">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <div class="diag-text">
+            <div class="diag-status">2FA Protection is Active</div>
+            <div class="diag-sub">Time-based One-Time Password (TOTP) is enforced on all merchant administrator sign-ins.</div>
+          </div>
+        </div>
+        <div class="modal-section-card">
+          <h4 class="modal-section-heading">Configured Methods</h4>
+          <div class="meta-kv-list">
+            <div class="meta-kv">
+              <span class="k">Primary Method:</span>
+              <span class="v">Google Authenticator / 1Password</span>
+            </div>
+            <div class="meta-kv">
+              <span class="k">Emergency Backup Codes:</span>
+              <span class="v">8 codes remaining</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary-action btn-sm" id="btnRegenerateBackupCodes">Regenerate Codes</button>
+        <button type="button" class="btn-modal-secondary" id="twoFactorModalDismissBtn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 6: ACTIVE SESSIONS MODAL ================= -->
+  <div class="modal-overlay" id="sessionsModalOverlay" aria-hidden="true">
+    <div class="modal-container profile-edit-modal" role="dialog" aria-modal="true" aria-labelledby="sessionsModalTitle">
+      <div class="modal-header">
+        <div class="modal-title-lockup">
+          <span class="modal-badge-ai">Security</span>
+          <h3 class="modal-title" id="sessionsModalTitle">Active Login Sessions</h3>
+        </div>
+        <button class="modal-close-btn" id="sessionsModalCloseBtn" aria-label="Close modal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="sessions-list">
+          <div class="session-card current">
+            <div class="session-top">
+              <span class="session-device">Chrome on Windows 11</span>
+              <span class="badge-status badge-recovered"><span class="badge-dot"></span>Current Session</span>
+            </div>
+            <div class="session-meta">Mumbai, India &bull; IP: 103.212.xx.xx &bull; Active Now</div>
+          </div>
+          <div class="session-card" id="secondarySessionCard">
+            <div class="session-top">
+              <span class="session-device">Safari on macOS Sonoma</span>
+              <span class="session-badge-standby">Standby</span>
+            </div>
+            <div class="session-meta">Bengaluru, India &bull; IP: 49.207.xx.xx &bull; 4 hours ago</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary-action btn-sm" id="btnRevokeOtherSessions">Revoke Other Sessions</button>
+        <button type="button" class="btn-modal-secondary" id="sessionsModalDismissBtn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 7: SIGN OUT MODAL ================= -->
+  <div class="modal-overlay" id="signOutModalOverlay" aria-hidden="true">
+    <div class="modal-container run-recovery-modal" role="dialog" aria-modal="true">
+      <div class="complete-header">
+        <div class="signer-icon-box">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+        </div>
+        <h3 class="run-title">Sign Out of RecoverIQ</h3>
+        <p class="run-subtitle">You will end your session as merchant administrator for Demo Merchant (MER_DEMO_48291).</p>
+      </div>
+      <div class="modal-footer" style="background: none; justify-content: center; gap: 12px; border: none; padding-top: 0;">
+        <button type="button" class="btn-modal-secondary" id="signOutCancelBtn">Cancel</button>
+        <button type="button" class="btn-primary-action btn-sm" id="signOutConfirmBtn">Confirm Sign Out</button>
+      </div>
     </div>
   </div>
 

@@ -360,7 +360,8 @@ document.addEventListener('DOMContentLoaded', () => {
     analytics: { title: 'Analytics', sub: 'Failure taxonomy, issuer latency telemetry, and channel efficacy' },
     policies: { title: 'Policies', sub: 'Configure automated intelligence thresholds, retry limits, and safety rails' },
     audit: { title: 'Audit Trail', sub: 'Cryptographically verified log of all automated AI recovery events' },
-    settings: { title: 'Settings', sub: 'Connected payment infrastructure, webhooks, and merchant credentials' }
+    settings: { title: 'Settings', sub: 'Connected payment infrastructure, webhooks, and merchant credentials' },
+    profile: { title: 'Profile', sub: 'Manage your account, business information, and preferences.' }
   };
 
   function switchView(viewKey) {
@@ -409,6 +410,17 @@ document.addEventListener('DOMContentLoaded', () => {
       if (viewKey) switchView(viewKey);
     });
   });
+
+  // Top-right profile avatar button & sidebar profile card
+  const headerProfileBtn = document.getElementById('headerProfileBtn');
+  if (headerProfileBtn) {
+    headerProfileBtn.addEventListener('click', () => switchView('profile'));
+  }
+
+  const merchantProfileCard = document.querySelector('.merchant-profile-card');
+  if (merchantProfileCard) {
+    merchantProfileCard.addEventListener('click', () => switchView('profile'));
+  }
 
   // Action button inside AI Recovery Insight card: "View Recovery Queue →"
   const btnViewQueueFromInsight = document.getElementById('btnViewQueueFromInsight');
@@ -915,16 +927,17 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       closeDecisionModal();
-      if (recoveryRunModalOverlay) {
-        recoveryRunModalOverlay.classList.remove('show');
-      }
+      document.querySelectorAll('.modal-overlay.show').forEach(m => m.classList.remove('show'));
     }
   });
 
   // INITIALIZE CHART
   renderPerformanceChart(CHART_DATA_30D);
 
-  // URL Hash Deep Linking Support (e.g. #view=queue or #modal=pay_48291 or #run=ai)
+  // INITIALIZE PROFILE INTERACTIONS
+  initProfileInteractions();
+
+  // URL Hash Deep Linking Support (e.g. #view=queue or #modal=pay_48291 or #run=ai or #view=profile)
   function checkUrlHash() {
     const hash = window.location.hash;
     if (!hash) return;
@@ -942,4 +955,257 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('hashchange', checkUrlHash);
   checkUrlHash();
+
+  // =========================================================================
+  // 11. MERCHANT PROFILE INTERACTION LOGIC
+  // =========================================================================
+
+  function initProfileInteractions() {
+    // 1. Manage Policies from Profile
+    const btnManagePoliciesFromProfile = document.getElementById('btnManagePoliciesFromProfile');
+    if (btnManagePoliciesFromProfile) {
+      btnManagePoliciesFromProfile.addEventListener('click', () => {
+        switchView('policies');
+      });
+    }
+
+    // 2. Edit Business Information Modal
+    const btnEditBusinessInfo = document.getElementById('btnEditBusinessInfo');
+    const editBusinessModalOverlay = document.getElementById('editBusinessModalOverlay');
+    const editBusinessCloseBtn = document.getElementById('editBusinessCloseBtn');
+    const editBusinessCancelBtn = document.getElementById('editBusinessCancelBtn');
+    const editBusinessForm = document.getElementById('editBusinessForm');
+
+    function openEditBusinessModal() {
+      if (editBusinessModalOverlay) {
+        editBusinessModalOverlay.classList.add('show');
+        editBusinessModalOverlay.setAttribute('aria-hidden', 'false');
+      }
+    }
+
+    function closeEditBusinessModal() {
+      if (editBusinessModalOverlay) {
+        editBusinessModalOverlay.classList.remove('show');
+        editBusinessModalOverlay.setAttribute('aria-hidden', 'true');
+      }
+    }
+
+    if (btnEditBusinessInfo) btnEditBusinessInfo.addEventListener('click', openEditBusinessModal);
+    if (editBusinessCloseBtn) editBusinessCloseBtn.addEventListener('click', closeEditBusinessModal);
+    if (editBusinessCancelBtn) editBusinessCancelBtn.addEventListener('click', closeEditBusinessModal);
+    if (editBusinessModalOverlay) {
+      editBusinessModalOverlay.addEventListener('click', (e) => {
+        if (e.target === editBusinessModalOverlay) closeEditBusinessModal();
+      });
+    }
+
+    if (editBusinessForm) {
+      editBusinessForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const nameVal = document.getElementById('inputBusinessName').value.trim();
+        const industryVal = document.getElementById('inputIndustry').value.trim();
+        const emailVal = document.getElementById('inputEmail').value.trim();
+        const countryVal = document.getElementById('inputCountry').value.trim();
+        const currencyVal = document.getElementById('inputCurrency').value;
+
+        // Update profile fields
+        document.getElementById('displayBusinessNameHero').textContent = nameVal;
+        document.getElementById('displayEmailHero').textContent = emailVal;
+        document.getElementById('displayEmailHero').href = `mailto:${emailVal}`;
+
+        document.getElementById('fieldBusinessName').textContent = nameVal;
+        document.getElementById('fieldIndustry').textContent = industryVal;
+        document.getElementById('fieldEmail').textContent = emailVal;
+        document.getElementById('fieldCountry').textContent = countryVal;
+        document.getElementById('fieldCurrency').textContent = currencyVal;
+
+        // Update sidebar merchant card
+        const sidebarMerchantName = document.querySelector('.merchant-info .merchant-name');
+        if (sidebarMerchantName) sidebarMerchantName.textContent = nameVal;
+
+        closeEditBusinessModal();
+        showToast('✓ Business information updated successfully');
+      });
+    }
+
+    // 3. Change Password Modal
+    const btnChangePassword = document.getElementById('btnChangePassword');
+    const passwordModalOverlay = document.getElementById('passwordModalOverlay');
+    const passwordModalCloseBtn = document.getElementById('passwordModalCloseBtn');
+    const passwordModalCancelBtn = document.getElementById('passwordModalCancelBtn');
+    const changePasswordForm = document.getElementById('changePasswordForm');
+
+    function openPasswordModal() {
+      if (passwordModalOverlay) {
+        passwordModalOverlay.classList.add('show');
+        passwordModalOverlay.setAttribute('aria-hidden', 'false');
+      }
+    }
+
+    function closePasswordModal() {
+      if (passwordModalOverlay) {
+        passwordModalOverlay.classList.remove('show');
+        passwordModalOverlay.setAttribute('aria-hidden', 'true');
+      }
+    }
+
+    if (btnChangePassword) btnChangePassword.addEventListener('click', openPasswordModal);
+    if (passwordModalCloseBtn) passwordModalCloseBtn.addEventListener('click', closePasswordModal);
+    if (passwordModalCancelBtn) passwordModalCancelBtn.addEventListener('click', closePasswordModal);
+    if (passwordModalOverlay) {
+      passwordModalOverlay.addEventListener('click', (e) => {
+        if (e.target === passwordModalOverlay) closePasswordModal();
+      });
+    }
+
+    if (changePasswordForm) {
+      changePasswordForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const newPass = document.getElementById('inputNewPassword').value;
+        const confirmPass = document.getElementById('inputConfirmPassword').value;
+        if (newPass !== confirmPass) {
+          showToast('Passwords do not match. Please re-enter.');
+          return;
+        }
+        changePasswordForm.reset();
+        closePasswordModal();
+        showToast('✓ Merchant password changed successfully');
+      });
+    }
+
+    // 4. Two-Factor Authentication Modal
+    const btnManage2FA = document.getElementById('btnManage2FA');
+    const twoFactorModalOverlay = document.getElementById('twoFactorModalOverlay');
+    const twoFactorModalCloseBtn = document.getElementById('twoFactorModalCloseBtn');
+    const twoFactorModalDismissBtn = document.getElementById('twoFactorModalDismissBtn');
+    const btnRegenerateBackupCodes = document.getElementById('btnRegenerateBackupCodes');
+
+    function open2FAModal() {
+      if (twoFactorModalOverlay) {
+        twoFactorModalOverlay.classList.add('show');
+        twoFactorModalOverlay.setAttribute('aria-hidden', 'false');
+      }
+    }
+
+    function close2FAModal() {
+      if (twoFactorModalOverlay) {
+        twoFactorModalOverlay.classList.remove('show');
+        twoFactorModalOverlay.setAttribute('aria-hidden', 'true');
+      }
+    }
+
+    if (btnManage2FA) btnManage2FA.addEventListener('click', open2FAModal);
+    if (twoFactorModalCloseBtn) twoFactorModalCloseBtn.addEventListener('click', close2FAModal);
+    if (twoFactorModalDismissBtn) twoFactorModalDismissBtn.addEventListener('click', close2FAModal);
+    if (twoFactorModalOverlay) {
+      twoFactorModalOverlay.addEventListener('click', (e) => {
+        if (e.target === twoFactorModalOverlay) close2FAModal();
+      });
+    }
+    if (btnRegenerateBackupCodes) {
+      btnRegenerateBackupCodes.addEventListener('click', () => {
+        showToast('✓ 8 new emergency backup codes generated');
+      });
+    }
+
+    // 5. Active Sessions Modal
+    const btnViewSessions = document.getElementById('btnViewSessions');
+    const sessionsModalOverlay = document.getElementById('sessionsModalOverlay');
+    const sessionsModalCloseBtn = document.getElementById('sessionsModalCloseBtn');
+    const sessionsModalDismissBtn = document.getElementById('sessionsModalDismissBtn');
+    const btnRevokeOtherSessions = document.getElementById('btnRevokeOtherSessions');
+    const secondarySessionCard = document.getElementById('secondarySessionCard');
+
+    function openSessionsModal() {
+      if (sessionsModalOverlay) {
+        sessionsModalOverlay.classList.add('show');
+        sessionsModalOverlay.setAttribute('aria-hidden', 'false');
+      }
+    }
+
+    function closeSessionsModal() {
+      if (sessionsModalOverlay) {
+        sessionsModalOverlay.classList.remove('show');
+        sessionsModalOverlay.setAttribute('aria-hidden', 'true');
+      }
+    }
+
+    if (btnViewSessions) btnViewSessions.addEventListener('click', openSessionsModal);
+    if (sessionsModalCloseBtn) sessionsModalCloseBtn.addEventListener('click', closeSessionsModal);
+    if (sessionsModalDismissBtn) sessionsModalDismissBtn.addEventListener('click', closeSessionsModal);
+    if (sessionsModalOverlay) {
+      sessionsModalOverlay.addEventListener('click', (e) => {
+        if (e.target === sessionsModalOverlay) closeSessionsModal();
+      });
+    }
+
+    if (btnRevokeOtherSessions) {
+      btnRevokeOtherSessions.addEventListener('click', () => {
+        if (secondarySessionCard) {
+          secondarySessionCard.style.opacity = '0.4';
+          const badge = secondarySessionCard.querySelector('.session-badge-standby');
+          if (badge) badge.textContent = 'Revoked';
+        }
+        showToast('✓ All secondary sessions terminated');
+      });
+    }
+
+    // 6. Preferences Toggles & Currency Dropdown
+    const toggleEmailNotif = document.getElementById('toggleEmailNotif');
+    const toggleRecoveryAlerts = document.getElementById('toggleRecoveryAlerts');
+    const toggleWeeklySummary = document.getElementById('toggleWeeklySummary');
+    const prefCurrencySelect = document.getElementById('prefCurrencySelect');
+
+    [toggleEmailNotif, toggleRecoveryAlerts, toggleWeeklySummary].forEach(toggle => {
+      if (toggle) {
+        toggle.addEventListener('click', () => {
+          toggle.classList.toggle('active');
+          const isEnabled = toggle.classList.contains('active');
+          showToast(`Preference updated: ${isEnabled ? 'Enabled' : 'Disabled'}`);
+        });
+      }
+    });
+
+    if (prefCurrencySelect) {
+      prefCurrencySelect.addEventListener('change', (e) => {
+        showToast(`Default currency updated to: ${e.target.value}`);
+      });
+    }
+
+    // 7. Sign Out Modal
+    const btnSignOut = document.getElementById('btnSignOut');
+    const signOutModalOverlay = document.getElementById('signOutModalOverlay');
+    const signOutCancelBtn = document.getElementById('signOutCancelBtn');
+    const signOutConfirmBtn = document.getElementById('signOutConfirmBtn');
+
+    function openSignOutModal() {
+      if (signOutModalOverlay) {
+        signOutModalOverlay.classList.add('show');
+        signOutModalOverlay.setAttribute('aria-hidden', 'false');
+      }
+    }
+
+    function closeSignOutModal() {
+      if (signOutModalOverlay) {
+        signOutModalOverlay.classList.remove('show');
+        signOutModalOverlay.setAttribute('aria-hidden', 'true');
+      }
+    }
+
+    if (btnSignOut) btnSignOut.addEventListener('click', openSignOutModal);
+    if (signOutCancelBtn) signOutCancelBtn.addEventListener('click', closeSignOutModal);
+    if (signOutModalOverlay) {
+      signOutModalOverlay.addEventListener('click', (e) => {
+        if (e.target === signOutModalOverlay) closeSignOutModal();
+      });
+    }
+
+    if (signOutConfirmBtn) {
+      signOutConfirmBtn.addEventListener('click', () => {
+        closeSignOutModal();
+        showToast('Signed out of merchant session. Returning to overview...');
+        setTimeout(() => switchView('overview'), 800);
+      });
+    }
+  }
 });
