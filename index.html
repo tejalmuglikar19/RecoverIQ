@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RecoverIQ — AI Revenue Recovery Platform</title>
+  <meta name="description" content="AI-powered revenue recovery platform for modern merchants. Monitor revenue at risk and recovery performance.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-dark">
+  <div class="app-layout">
+    
+    <!-- MOBILE TOP BAR (Hidden on desktop) -->
+    <header class="mobile-nav-bar" id="mobileNavBar">
+      <button class="menu-toggle-btn" id="mobileMenuToggle" aria-label="Toggle navigation menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="brand-lockup">
+        <div class="brand-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <polyline points="1 20 1 14 7 14"></polyline>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+          </svg>
+        </div>
+        <span class="brand-name">Recover<strong>IQ</strong></span>
+      </div>
+      <div class="mobile-mode-tag">DEMO</div>
+    </header>
+
+    <!-- MOBILE BACKDROP -->
+    <div class="mobile-backdrop" id="mobileBackdrop"></div>
+
+    <!-- 1. LEFT SIDEBAR -->
+    <aside class="sidebar" id="appSidebar">
+      <div class="sidebar-header">
+        <div class="brand-lockup">
+          <div class="brand-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10"></polyline>
+              <polyline points="1 20 1 14 7 14"></polyline>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-title">Recover<strong>IQ</strong></span>
+            <span class="brand-tagline">Revenue Intelligence</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN NAVIGATION -->
+      <nav class="sidebar-nav" aria-label="Main Navigation">
+        <div class="nav-section-label">PLATFORM</div>
+        <ul class="nav-list">
+          <li class="nav-item">
+            <button class="nav-link active" data-view="overview">
+              <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
+              <span class="nav-label">Overview</span>
+              <span class="nav-status-indicator" aria-hidden="true"></span>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-view="queue">
+              <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="8" y1="6" x2="21" y2="6"></line>
+                <line x1="8" y1="12" x2="21" y2="12"></line>
+                <line x1="8" y1="18" x2="21" y2="18"></line>
+                <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+              </svg>
+              <span class="nav-label">Recovery Queue</span>
+              <span class="badge-count" id="queueBadge">24</span>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-view="analytics">
+              <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10"></line>
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="14"></line>
+              </svg>
+              <span class="nav-label">Analytics</span>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-view="policies">
+              <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+              <span class="nav-label">Policies</span>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-view="audit">
+              <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+              <span class="nav-label">Audit Trail</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- SIDEBAR FOOTER -->
+      <div class="sidebar-footer">
+        <ul class="nav-list footer-nav">
+          <li class="nav-item">
+            <button class="nav-link" data-view="settings">
+              <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              <span class="nav-label">Settings</span>
+            </button>
+          </li>
+        </ul>
+
+        <!-- MERCHANT PROFILE AREA -->
+        <div class="merchant-profile-card">
+          <div class="merchant-avatar">
+            <span>DM</span>
+          </div>
+          <div class="merchant-info">
+            <div class="merchant-name">Demo Merchant</div>
+            <div class="merchant-tier">Enterprise &bull; MID-8492</div>
+          </div>
+          <div class="merchant-status-dot" title="Active Connection"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT WRAPPER -->
+    <div class="main-wrapper">
+      
+      <!-- 2. TOP HEADER -->
+      <header class="top-header">
+        <div class="header-left">
+          <h1 class="page-title" id="pageTitle">Overview</h1>
+          <p class="page-subtitle" id="pageSubtitle">Monitor revenue at risk and recovery performance</p>
+        </div>
+
+        <div class="header-right">
+          <!-- DEMO MODE BADGE -->
+          <div class="badge-demo-mode">
+            <span class="demo-indicator-dot"></span>
+            <span>DEMO MODE &bull; Synthetic Data</span>
+          </div>
+
+          <!-- DATE SELECTOR -->
+          <div class="date-selector-wrapper">
+            <button class="date-selector-btn" id="dateSelectorBtn" aria-expanded="false">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              <span id="selectedDateRange">Last 30 Days</span>
+              <svg class="chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="date-dropdown-menu" id="dateDropdownMenu">
+              <button class="date-option" data-range="7d">Last 7 Days</button>
+              <button class="date-option active" data-range="30d">Last 30 Days</button>
+              <button class="date-option" data-range="90d">Last 90 Days</button>
+              <button class="date-option" data-range="ytd">Year to Date (2026)</button>
+            </div>
+          </div>
+
+          <!-- PRIMARY ACTION BUTTON -->
+          <button class="btn-primary-action" id="runAiRecoveryBtn">
+            <span class="btn-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+            </span>
+            <span>Run AI Recovery &rarr;</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- SYSTEM NARRATIVE BANNER -->
+      <div class="narrative-breadcrumb-strip">
+        <div class="story-step">
+          <span class="step-num">1</span>
+          <span class="step-label">&#8377; Revenue at Risk</span>
+        </div>
+        <span class="story-arrow">&rarr;</span>
+        <div class="story-step">
+          <span class="step-num">2</span>
+          <span class="step-label">AI Identifies Opportunity</span>
+        </div>
+        <span class="story-arrow">&rarr;</span>
+        <div class="story-step">
+          <span class="step-num">3</span>
+          <span class="step-label">Adaptive Recovery Action</span>
+        </div>
+        <span class="story-arrow">&rarr;</span>
+        <div class="story-step">
+          <span class="step-num">4</span>
+          <span class="step-label">Verified Outcome</span>
+        </div>
+        <span class="story-arrow">&rarr;</span>
+        <div class="story-step active-step">
+          <span class="step-num">5</span>
+          <span class="step-label">&#8377; Revenue Recovered</span>
+        </div>
+      </div>
+
+      <!-- MAIN VIEWS CONTAINER -->
+      <main class="content-area">
+        
+        <!-- ================= VIEW 1: OVERVIEW ================= -->
+        <section class="view-panel active" id="view-overview">
+          
+          <!-- 3. KPI SECTION -->
+          <div class="kpi-grid">
+            
+            <!-- Card 1: Revenue at Risk -->
+            <div class="kpi-card" id="kpi-risk">
+              <div class="kpi-top">
+                <span class="kpi-label">Revenue at Risk</span>
+                <div class="kpi-icon-badge badge-warning">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                  </svg>
+                </div>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-value" id="valRevenueAtRisk">&#8377;12.8L</span>
+              </div>
+              <div class="kpi-footer">
+                <span class="kpi-trend trend-down-good">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  <span>&darr; 8.4%</span>
+                </span>
+                <span class="kpi-supporting-text">vs previous period</span>
+              </div>
+            </div>
+
+            <!-- Card 2: Revenue Recovered -->
+            <div class="kpi-card highlight-card" id="kpi-recovered">
+              <div class="kpi-top">
+                <span class="kpi-label">Revenue Recovered</span>
+                <div class="kpi-icon-badge badge-emerald">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-value emerald-accent" id="valRevenueRecovered">&#8377;8.4L</span>
+              </div>
+              <div class="kpi-footer">
+                <span class="kpi-trend trend-up-success">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                  <span>&uarr; 14.2%</span>
+                </span>
+                <span class="kpi-supporting-text">vs previous period</span>
+              </div>
+            </div>
+
+            <!-- Card 3: Recovery Rate -->
+            <div class="kpi-card" id="kpi-rate">
+              <div class="kpi-top">
+                <span class="kpi-label">Recovery Rate</span>
+                <div class="kpi-icon-badge badge-neutral">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M16 12l-4-4-4 4M12 16V8"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-value" id="valRecoveryRate">65.6%</span>
+              </div>
+              <div class="kpi-footer">
+                <span class="kpi-trend trend-up-success">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                  <span>+6.8%</span>
+                </span>
+                <span class="kpi-supporting-text">improvement</span>
+              </div>
+            </div>
+
+            <!-- Card 4: Recovery ROI -->
+            <div class="kpi-card" id="kpi-roi">
+              <div class="kpi-top">
+                <span class="kpi-label">Recovery ROI</span>
+                <div class="kpi-icon-badge badge-neutral">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-value" id="valRecoveryRoi">2.8&times;</span>
+              </div>
+              <div class="kpi-footer">
+                <span class="kpi-indicator-pill">Target &ge; 1.5&times;</span>
+                <span class="kpi-supporting-text">Above 1.5&times; target</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- MIDDLE SECTION: MAIN CHART + SIDE PANEL (AI INSIGHT & RECOVERY STATUS) -->
+          <div class="dashboard-mid-grid">
+            
+            <!-- 4. MAIN RECOVERY CHART CARD -->
+            <div class="dashboard-card chart-card">
+              <div class="card-header-flex">
+                <div>
+                  <h2 class="card-title">Recovery Performance</h2>
+                  <p class="card-subtitle">Revenue at risk vs successfully recovered</p>
+                </div>
+                <div class="chart-legend-row">
+                  <div class="legend-item" id="legendRisk">
+                    <span class="legend-line line-risk"></span>
+                    <span class="legend-text">Revenue at Risk</span>
+                  </div>
+                  <div class="legend-item" id="legendRecovered">
+                    <span class="legend-line line-recovered"></span>
+                    <span class="legend-text">Revenue Recovered</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SVG CHART CONTAINER -->
+              <div class="chart-viewport" id="chartViewport">
+                <svg class="performance-chart-svg" id="performanceChartSvg" viewBox="0 0 720 280" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="riskGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#475569" stop-opacity="0.22" />
+                      <stop offset="100%" stop-color="#475569" stop-opacity="0.0" />
+                    </linearGradient>
+                    <linearGradient id="recoveredGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#10B981" stop-opacity="0.30" />
+                      <stop offset="100%" stop-color="#10B981" stop-opacity="0.0" />
+                    </linearGradient>
+                    <filter id="emeraldGlow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#10B981" flood-opacity="0.35"/>
+                    </filter>
+                  </defs>
+
+                  <!-- Chart Grid & Horizontal Guidelines -->
+                  <g class="chart-grid">
+                    <line x1="50" y1="30" x2="700" y2="30" stroke="#1E293B" stroke-dasharray="3 3"/>
+                    <text x="40" y="34" class="chart-axis-label" text-anchor="end">&#8377;60K</text>
+                    
+                    <line x1="50" y1="90" x2="700" y2="90" stroke="#1E293B" stroke-dasharray="3 3"/>
+                    <text x="40" y="94" class="chart-axis-label" text-anchor="end">&#8377;45K</text>
+
+                    <line x1="50" y1="150" x2="700" y2="150" stroke="#1E293B" stroke-dasharray="3 3"/>
+                    <text x="40" y="154" class="chart-axis-label" text-anchor="end">&#8377;30K</text>
+
+                    <line x1="50" y1="210" x2="700" y2="210" stroke="#1E293B" stroke-dasharray="3 3"/>
+                    <text x="40" y="214" class="chart-axis-label" text-anchor="end">&#8377;15K</text>
+
+                    <line x1="50" y1="250" x2="700" y2="250" stroke="#25334A"/>
+                    <text x="40" y="254" class="chart-axis-label" text-anchor="end">&#8377;0</text>
+                  </g>
+
+                  <!-- Dynamic SVG Paths rendered by JS -->
+                  <g id="chartPathsContainer"></g>
+
+                  <!-- Crosshair line and hover points (hidden until hover) -->
+                  <line id="chartCrosshair" x1="0" y1="20" x2="0" y2="250" class="chart-crosshair" style="display:none;" />
+                  <circle id="hoverPointRisk" r="4.5" class="chart-point-risk" style="display:none;" />
+                  <circle id="hoverPointRecovered" r="5" class="chart-point-recovered" style="display:none;" />
+
+                  <!-- Date Axis Ticks -->
+                  <g id="chartDateAxis" class="chart-date-axis"></g>
+                </svg>
+
+                <!-- Floating Chart Tooltip -->
+                <div class="chart-tooltip" id="chartTooltip" style="display:none;">
+                  <div class="tooltip-date" id="tooltipDate">Day 15</div>
+                  <div class="tooltip-metric">
+                    <span class="tooltip-dot dot-risk"></span>
+                    <span class="tooltip-label">Revenue at Risk:</span>
+                    <span class="tooltip-val" id="tooltipRisk">&#8377;42,100</span>
+                  </div>
+                  <div class="tooltip-metric">
+                    <span class="tooltip-dot dot-recovered"></span>
+                    <span class="tooltip-label">Revenue Recovered:</span>
+                    <span class="tooltip-val emerald" id="tooltipRecovered">&#8377;36,400</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Chart Quick Summary Bar -->
+              <div class="chart-footer-metrics">
+                <div class="stat-slice">
+                  <span class="stat-slice-title">30-Day Total at Risk</span>
+                  <span class="stat-slice-num" id="chartTotalRisk">&#8377;12,84,300</span>
+                </div>
+                <div class="stat-slice-divider"></div>
+                <div class="stat-slice">
+                  <span class="stat-slice-title">30-Day Total Recovered</span>
+                  <span class="stat-slice-num text-emerald" id="chartTotalRecovered">&#8377;8,42,100</span>
+                </div>
+                <div class="stat-slice-divider"></div>
+                <div class="stat-slice">
+                  <span class="stat-slice-title">Average Recovery Latency</span>
+                  <span class="stat-slice-num">4.2 Hours</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT COLUMN: RECOVERY STATUS + AI INSIGHT CARD -->
+            <div class="dashboard-side-col">
+              
+              <!-- 6. AI RECOVERY INSIGHT CARD -->
+              <div class="dashboard-card ai-insight-card">
+                <div class="ai-insight-top">
+                  <div class="ai-badge">
+                    <span class="ai-badge-pulse"></span>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                    <span>AI Analysis</span>
+                  </div>
+                  <span class="ai-confidence-pill">Confidence 94%</span>
+                </div>
+
+                <h3 class="ai-insight-headline">
+                  Temporary failures represent the largest recovery opportunity.
+                </h3>
+
+                <p class="ai-insight-body">
+                  68% of current revenue at risk is associated with temporary payment failures. 14 payments have a high probability of successful recovery through a single retry.
+                </p>
+
+                <div class="ai-insight-footer">
+                  <button class="btn-insight-action" id="btnViewQueueFromInsight">
+                    <span>View Recovery Queue &rarr;</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- 5. RECOVERY STATUS COMPACT CARD -->
+              <div class="dashboard-card status-card">
+                <div class="card-header-simple">
+                  <h3 class="card-title-sm">Recovery Status</h3>
+                  <span class="total-status-count" id="totalActiveCount">90 Total</span>
+                </div>
+
+                <!-- Horizontal Distribution Bar -->
+                <div class="status-distribution-bar" title="Status Distribution Ratio">
+                  <div class="dist-seg seg-ready" id="barSegReady" style="width: 26.6%;" title="Ready: 24"></div>
+                  <div class="dist-seg seg-progress" id="barSegProgress" style="width: 8.8%;" title="In Progress: 8"></div>
+                  <div class="dist-seg seg-recovered" id="barSegRecovered" style="width: 46.6%;" title="Recovered: 42"></div>
+                  <div class="dist-seg seg-escalated" id="barSegEscalated" style="width: 5.5%;" title="Escalated: 5"></div>
+                  <div class="dist-seg seg-stopped" id="barSegStopped" style="width: 12.2%;" title="Stopped: 11"></div>
+                </div>
+
+                <!-- Status Rows -->
+                <div class="status-list">
+                  <div class="status-row" data-filter="ready">
+                    <div class="status-row-left">
+                      <span class="status-indicator-dot dot-ready"></span>
+                      <span class="status-name">Ready for Recovery</span>
+                    </div>
+                    <span class="status-count-val" id="cntReady">24</span>
+                  </div>
+
+                  <div class="status-row" data-filter="progress">
+                    <div class="status-row-left">
+                      <span class="status-indicator-dot dot-progress"></span>
+                      <span class="status-name">In Progress</span>
+                    </div>
+                    <span class="status-count-val" id="cntProgress">8</span>
+                  </div>
+
+                  <div class="status-row" data-filter="recovered">
+                    <div class="status-row-left">
+                      <span class="status-indicator-dot dot-recovered"></span>
+                      <span class="status-name text-emerald">Recovered</span>
+                    </div>
+                    <span class="status-count-val emerald-num" id="cntRecovered">42</span>
+                  </div>
+
+                  <div class="status-row" data-filter="escalated">
+                    <div class="status-row-left">
+                      <span class="status-indicator-dot dot-escalated"></span>
+                      <span class="status-name">Escalated</span>
+                    </div>
+                    <span class="status-count-val" id="cntEscalated">5</span>
+                  </div>
+
+                  <div class="status-row" data-filter="stopped">
+                    <div class="status-row-left">
+                      <span class="status-indicator-dot dot-stopped"></span>
+                      <span class="status-name">Stopped</span>
+                    </div>
+                    <span class="status-count-val" id="cntStopped">11</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- 7. RECENT RECOVERY ACTIVITY TABLE CARD -->
+          <div class="dashboard-card table-card">
+            <div class="card-header-flex">
+              <div>
+                <h2 class="card-title">Recent Recovery Activity</h2>
+                <p class="card-subtitle">Real-time payment failure recovery outcomes and AI decisions</p>
+              </div>
+              <div class="table-actions">
+                <span class="table-hint">Click any Payment ID to inspect AI Decision</span>
+              </div>
+            </div>
+
+            <!-- TABLE CONTAINER WITH HORIZONTAL SCROLL -->
+            <div class="table-responsive-wrapper">
+              <table class="fintech-table" id="recentActivityTable">
+                <thead>
+                  <tr>
+                    <th class="th-payment">Payment</th>
+                    <th class="th-amount text-right">Amount</th>
+                    <th class="th-failure">Failure</th>
+                    <th class="th-action">Action</th>
+                    <th class="th-outcome">Outcome</th>
+                    <th class="th-inspect text-right">Decision</th>
+                  </tr>
+                </thead>
+                <tbody id="recentActivityTbody">
+                  <!-- Row 1: Insufficient funds -->
+                  <tr class="table-row-clickable" data-payment-id="#pay_48291">
+                    <td class="cell-payment">
+                      <button class="payment-id-btn" data-id="#pay_48291">
+                        <span class="id-symbol">#</span>pay_48291
+                      </button>
+                    </td>
+                    <td class="cell-amount text-right tabular-nums">&#8377;24,500</td>
+                    <td class="cell-failure">
+                      <span class="failure-reason">Insufficient funds</span>
+                    </td>
+                    <td class="cell-action">
+                      <span class="action-tag">Retry</span>
+                    </td>
+                    <td class="cell-outcome">
+                      <span class="badge-status badge-recovered">
+                        <span class="badge-dot"></span>
+                        Recovered
+                      </span>
+                    </td>
+                    <td class="cell-inspect text-right">
+                      <span class="view-decision-link">View &rarr;</span>
+                    </td>
+                  </tr>
+
+                  <!-- Row 2: Timeout -->
+                  <tr class="table-row-clickable" data-payment-id="#pay_39182">
+                    <td class="cell-payment">
+                      <button class="payment-id-btn" data-id="#pay_39182">
+                        <span class="id-symbol">#</span>pay_39182
+                      </button>
+                    </td>
+                    <td class="cell-amount text-right tabular-nums">&#8377;8,200</td>
+                    <td class="cell-failure">
+                      <span class="failure-reason">Timeout</span>
+                    </td>
+                    <td class="cell-action">
+                      <span class="action-tag">Retry</span>
+                    </td>
+                    <td class="cell-outcome">
+                      <span class="badge-status badge-recovered">
+                        <span class="badge-dot"></span>
+                        Recovered
+                      </span>
+                    </td>
+                    <td class="cell-inspect text-right">
+                      <span class="view-decision-link">View &rarr;</span>
+                    </td>
+                  </tr>
+
+                  <!-- Row 3: Repeated failure -->
+                  <tr class="table-row-clickable" data-payment-id="#pay_71293">
+                    <td class="cell-payment">
+                      <button class="payment-id-btn" data-id="#pay_71293">
+                        <span class="id-symbol">#</span>pay_71293
+                      </button>
+                    </td>
+                    <td class="cell-amount text-right tabular-nums">&#8377;52,000</td>
+                    <td class="cell-failure">
+                      <span class="failure-reason">Repeated failure</span>
+                    </td>
+                    <td class="cell-action">
+                      <span class="action-tag tag-escalate">Escalate</span>
+                    </td>
+                    <td class="cell-outcome">
+                      <span class="badge-status badge-review">
+                        <span class="badge-dot"></span>
+                        Review
+                      </span>
+                    </td>
+                    <td class="cell-inspect text-right">
+                      <span class="view-decision-link">View &rarr;</span>
+                    </td>
+                  </tr>
+
+                  <!-- Row 4: Payment declined -->
+                  <tr class="table-row-clickable" data-payment-id="#pay_63821">
+                    <td class="cell-payment">
+                      <button class="payment-id-btn" data-id="#pay_63821">
+                        <span class="id-symbol">#</span>pay_63821
+                      </button>
+                    </td>
+                    <td class="cell-amount text-right tabular-nums">&#8377;14,600</td>
+                    <td class="cell-failure">
+                      <span class="failure-reason">Payment declined</span>
+                    </td>
+                    <td class="cell-action">
+                      <span class="action-tag">Reminder</span>
+                    </td>
+                    <td class="cell-outcome">
+                      <span class="badge-status badge-recovered">
+                        <span class="badge-dot"></span>
+                        Recovered
+                      </span>
+                    </td>
+                    <td class="cell-inspect text-right">
+                      <span class="view-decision-link">View &rarr;</span>
+                    </td>
+                  </tr>
+
+                  <!-- Row 5: Unknown -->
+                  <tr class="table-row-clickable" data-payment-id="#pay_92173">
+                    <td class="cell-payment">
+                      <button class="payment-id-btn" data-id="#pay_92173">
+                        <span class="id-symbol">#</span>pay_92173
+                      </button>
+                    </td>
+                    <td class="cell-amount text-right tabular-nums">&#8377;31,200</td>
+                    <td class="cell-failure">
+                      <span class="failure-reason">Unknown</span>
+                    </td>
+                    <td class="cell-action">
+                      <span class="action-tag tag-stop">STOP</span>
+                    </td>
+                    <td class="cell-outcome">
+                      <span class="badge-status badge-stopped">
+                        <span class="badge-dot"></span>
+                        Stopped
+                      </span>
+                    </td>
+                    <td class="cell-inspect text-right">
+                      <span class="view-decision-link">View &rarr;</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="table-footer-meta">
+              <div class="meta-notice">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <span>DEMO MODE &bull; Synthetic transaction data &bull; No PII or real credentials stored</span>
+              </div>
+              <div class="pagination-mock">
+                <span>Showing 1&ndash;5 of 90 synthetic records</span>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ================= VIEW 2: RECOVERY QUEUE ================= -->
+        <section class="view-panel" id="view-queue">
+          <div class="dashboard-card">
+            <div class="card-header-flex">
+              <div>
+                <h2 class="card-title">Recovery Queue</h2>
+                <p class="card-subtitle">Pending at-risk transactions, scheduled AI retry cadences, and manual overrides</p>
+              </div>
+              <div class="queue-header-actions">
+                <div class="search-input-wrapper">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                  <input type="text" id="queueSearchInput" placeholder="Filter by Payment ID or amount...">
+                </div>
+                <button class="btn-primary-action btn-sm" id="btnBatchRetry">
+                  <span>Batch Retry Ready (24)</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- QUEUE FILTER TABS -->
+            <div class="queue-filter-tabs">
+              <button class="queue-tab active" data-queue-filter="all">All Items (90)</button>
+              <button class="queue-tab" data-queue-filter="ready">Ready for Recovery (24)</button>
+              <button class="queue-tab" data-queue-filter="progress">In Progress (8)</button>
+              <button class="queue-tab" data-queue-filter="recovered">Recovered (42)</button>
+              <button class="queue-tab" data-queue-filter="escalated">Escalated (5)</button>
+              <button class="queue-tab" data-queue-filter="stopped">Stopped (11)</button>
+            </div>
+
+            <!-- QUEUE TABLE -->
+            <div class="table-responsive-wrapper">
+              <table class="fintech-table" id="fullQueueTable">
+                <thead>
+                  <tr>
+                    <th>Payment ID</th>
+                    <th>Created</th>
+                    <th class="text-right">Amount</th>
+                    <th>Gateway Error</th>
+                    <th>AI Confidence</th>
+                    <th>Recommended Action</th>
+                    <th>Status</th>
+                    <th class="text-right">Decision Details</th>
+                  </tr>
+                </thead>
+                <tbody id="queueTableBody">
+                  <!-- Injected via JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= VIEW 3: ANALYTICS ================= -->
+        <section class="view-panel" id="view-analytics">
+          <div class="analytics-grid">
+            
+            <div class="dashboard-card">
+              <h2 class="card-title">Failure Taxonomy Breakdown</h2>
+              <p class="card-subtitle">Root causes behind at-risk transactions</p>
+              <div class="breakdown-list">
+                <div class="breakdown-item">
+                  <div class="breakdown-label-row">
+                    <span class="breakdown-name">Insufficient Funds (Soft Decline)</span>
+                    <span class="breakdown-val tabular-nums">48.2% (&#8377;6.19L)</span>
+                  </div>
+                  <div class="breakdown-track">
+                    <div class="breakdown-fill" style="width: 48.2%; background-color: #38BDF8;"></div>
+                  </div>
+                </div>
+
+                <div class="breakdown-item">
+                  <div class="breakdown-label-row">
+                    <span class="breakdown-name">Issuer / Bank Gateway Timeout</span>
+                    <span class="breakdown-val tabular-nums">26.4% (&#8377;3.39L)</span>
+                  </div>
+                  <div class="breakdown-track">
+                    <div class="breakdown-fill" style="width: 26.4%; background-color: #10B981;"></div>
+                  </div>
+                </div>
+
+                <div class="breakdown-item">
+                  <div class="breakdown-label-row">
+                    <span class="breakdown-name">3DS / OTP Authentication Abandoned</span>
+                    <span class="breakdown-val tabular-nums">14.1% (&#8377;1.81L)</span>
+                  </div>
+                  <div class="breakdown-track">
+                    <div class="breakdown-fill" style="width: 14.1%; background-color: #F59E0B;"></div>
+                  </div>
+                </div>
+
+                <div class="breakdown-item">
+                  <div class="breakdown-label-row">
+                    <span class="breakdown-name">Card Limit Exceeded / Account Block</span>
+                    <span class="breakdown-val tabular-nums">7.8% (&#8377;1.00L)</span>
+                  </div>
+                  <div class="breakdown-track">
+                    <div class="breakdown-fill" style="width: 7.8%; background-color: #A855F7;"></div>
+                  </div>
+                </div>
+
+                <div class="breakdown-item">
+                  <div class="breakdown-label-row">
+                    <span class="breakdown-name">Hard Declines (Stolen / Expired / Blacklist)</span>
+                    <span class="breakdown-val tabular-nums">3.5% (&#8377;0.45L)</span>
+                  </div>
+                  <div class="breakdown-track">
+                    <div class="breakdown-fill" style="width: 3.5%; background-color: #EF4444;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="dashboard-card">
+              <h2 class="card-title">Recovery Channel Efficacy</h2>
+              <p class="card-subtitle">Conversion performance by AI recovery vector</p>
+              <div class="channel-stats">
+                <div class="channel-card">
+                  <div class="channel-top">
+                    <span class="channel-title">Smart Backoff Retry</span>
+                    <span class="channel-pct emerald">&uarr; 74.2%</span>
+                  </div>
+                  <p class="channel-desc">Algorithmic retry executed at predicted issuer peak acceptance times.</p>
+                  <div class="channel-stat-num">&#8377;5.2L recovered</div>
+                </div>
+
+                <div class="channel-card">
+                  <div class="channel-top">
+                    <span class="channel-title">Dynamic Payment Links</span>
+                    <span class="channel-pct emerald">&uarr; 51.8%</span>
+                  </div>
+                  <p class="channel-desc">Instant 1-click fallback link sent via SMS/WhatsApp with alternate UPI rails.</p>
+                  <div class="channel-stat-num">&#8377;2.1L recovered</div>
+                </div>
+
+                <div class="channel-card">
+                  <div class="channel-top">
+                    <span class="channel-title">Mid-Flight Route Switching</span>
+                    <span class="channel-pct emerald">&uarr; 82.0%</span>
+                  </div>
+                  <p class="channel-desc">Real-time gateway re-routing during banking downtime window.</p>
+                  <div class="channel-stat-num">&#8377;1.1L recovered</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ================= VIEW 4: POLICIES ================= -->
+        <section class="view-panel" id="view-policies">
+          <div class="dashboard-card">
+            <div class="card-header-flex">
+              <div>
+                <h2 class="card-title">AI Recovery Policies</h2>
+                <p class="card-subtitle">Configure automated intelligence thresholds, retry limits, and safety rails</p>
+              </div>
+              <button class="btn-primary-action btn-sm" id="btnSavePolicies">
+                <span>Save Policy Config</span>
+              </button>
+            </div>
+
+            <div class="policies-grid">
+              <div class="policy-setting-card">
+                <div class="policy-info">
+                  <div class="policy-name">Smart Adaptive Retry Windows</div>
+                  <div class="policy-desc">Allows AI engine to compute optimal bank settlement windows (e.g. 08:30 AM on salary cycles) instead of blind intervals.</div>
+                </div>
+                <div class="toggle-switch active" id="toggleAdaptive">
+                  <div class="toggle-handle"></div>
+                </div>
+              </div>
+
+              <div class="policy-setting-card">
+                <div class="policy-info">
+                  <div class="policy-name">High-Value Escalation Threshold</div>
+                  <div class="policy-desc">Transactions exceeding this limit trigger automated human merchant review rather than automated retries.</div>
+                </div>
+                <div class="policy-input-box">
+                  <span class="currency-prefix">&#8377;</span>
+                  <input type="text" value="50,000" class="policy-input" readonly>
+                </div>
+              </div>
+
+              <div class="policy-setting-card">
+                <div class="policy-info">
+                  <div class="policy-name">Maximum AI Retry Attempts</div>
+                  <div class="policy-desc">Hard limit on total retries per individual payment mandate before permanent stop.</div>
+                </div>
+                <div class="policy-input-box">
+                  <input type="number" value="3" class="policy-input-num" readonly>
+                  <span class="input-suffix">attempts</span>
+                </div>
+              </div>
+
+              <div class="policy-setting-card">
+                <div class="policy-info">
+                  <div class="policy-name">Immediate Hard Stop on Fraud / Stolen Flags</div>
+                  <div class="policy-desc">Zero-tolerance filter that halts all retry sequences on bank codes 107, 108, 114 to prevent chargeback penalties.</div>
+                </div>
+                <div class="toggle-switch active">
+                  <div class="toggle-handle"></div>
+                </div>
+              </div>
+
+              <div class="policy-setting-card">
+                <div class="policy-info">
+                  <div class="policy-name">Customer Quiet Hours (IST)</div>
+                  <div class="policy-desc">Suppresses interactive reminder notifications between 10:00 PM and 08:00 AM IST to comply with TRAI regulations.</div>
+                </div>
+                <div class="toggle-switch active">
+                  <div class="toggle-handle"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= VIEW 5: AUDIT TRAIL ================= -->
+        <section class="view-panel" id="view-audit">
+          <div class="dashboard-card">
+            <div class="card-header-flex">
+              <div>
+                <h2 class="card-title">Immutable Audit Trail</h2>
+                <p class="card-subtitle">Cryptographically verified log of all automated AI recovery events, bank webhooks, and overrides</p>
+              </div>
+              <div class="audit-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                <span>SHA-256 Ledger Verified</span>
+              </div>
+            </div>
+
+            <div class="audit-timeline" id="auditTimeline">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= VIEW 6: SETTINGS ================= -->
+        <section class="view-panel" id="view-settings">
+          <div class="dashboard-card">
+            <div class="card-header-flex">
+              <div>
+                <h2 class="card-title">Merchant Gateway Settings</h2>
+                <p class="card-subtitle">Connected payment infrastructure and webhook integrations</p>
+              </div>
+            </div>
+
+            <div class="gateway-connections">
+              <div class="gateway-item connected">
+                <div class="gateway-icon razorpay">RZP</div>
+                <div class="gateway-meta">
+                  <div class="gateway-name">Razorpay Primary Route</div>
+                  <div class="gateway-status-line">Connected &bull; Webhooks Active &bull; Mid: mid_live_rzp92810</div>
+                </div>
+                <div class="gateway-tag connected">Active Primary</div>
+              </div>
+
+              <div class="gateway-item connected">
+                <div class="gateway-icon cashfree">CF</div>
+                <div class="gateway-meta">
+                  <div class="gateway-name">Cashfree Secondary Failover</div>
+                  <div class="gateway-status-line">Connected &bull; Auto-fallback Enabled</div>
+                </div>
+                <div class="gateway-tag standby">Standby</div>
+              </div>
+
+              <div class="gateway-item connected">
+                <div class="gateway-icon payu">PU</div>
+                <div class="gateway-meta">
+                  <div class="gateway-name">PayU Enterprise</div>
+                  <div class="gateway-status-line">Connected &bull; UPI Mandate Hub</div>
+                </div>
+                <div class="gateway-tag standby">Standby</div>
+              </div>
+            </div>
+
+            <div class="settings-meta-section">
+              <h3 class="card-title-sm">Security &amp; Webhook Credentials</h3>
+              <div class="webhook-endpoint-box">
+                <span class="label">Webhook Endpoint URL</span>
+                <code>https://api.recoveriq.io/v1/webhooks/merchant_8492/listen</code>
+              </div>
+              <p class="text-muted-sm">All incoming webhook payloads are verified using your merchant HMAC-SHA256 signature.</p>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+    </div>
+  </div>
+
+  <!-- ================= MODAL 1: AI DECISION / DETAIL MODAL ================= -->
+  <div class="modal-overlay" id="decisionModalOverlay" aria-hidden="true">
+    <div class="modal-container decision-modal" role="dialog" aria-modal="true" aria-labelledby="modalPaymentId">
+      <div class="modal-header">
+        <div class="modal-title-lockup">
+          <span class="modal-badge-ai">AI Decision Engine</span>
+          <h3 class="modal-title" id="modalPaymentId">#pay_48291</h3>
+          <span class="modal-amount" id="modalAmount">&#8377;24,500</span>
+        </div>
+        <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close modal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <!-- TOP DIAGNOSTIC BANNER -->
+        <div class="diagnostic-banner" id="modalDiagnosticBanner">
+          <div class="diag-icon-wrapper" id="diagIconWrapper">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div class="diag-text">
+            <div class="diag-status" id="modalDiagStatus">Successfully Recovered on Retry 1</div>
+            <div class="diag-sub" id="modalDiagSub">AI identified salary window replenishing customer account. Immediate full capture verified.</div>
+          </div>
+        </div>
+
+        <!-- TWO COLUMN DETAILS -->
+        <div class="modal-grid-2">
+          
+          <!-- LEFT: TRANSACTION METADATA -->
+          <div class="modal-section-card">
+            <h4 class="modal-section-heading">Transaction Profile</h4>
+            <div class="meta-kv-list">
+              <div class="meta-kv">
+                <span class="k">Customer Profile:</span>
+                <span class="v" id="modalCustomer">Synthetic User (cust_82910)</span>
+              </div>
+              <div class="meta-kv">
+                <span class="k">Payment Method:</span>
+                <span class="v" id="modalMethod">HDFC Bank UPI AutoPay</span>
+              </div>
+              <div class="meta-kv">
+                <span class="k">Primary Failure Code:</span>
+                <span class="v" id="modalErrorCode">ERR_INSUFFICIENT_FUNDS (104)</span>
+              </div>
+              <div class="meta-kv">
+                <span class="k">Bank Issuer:</span>
+                <span class="v" id="modalIssuer">HDFC Bank Ltd (Retail UPI Node)</span>
+              </div>
+              <div class="meta-kv">
+                <span class="k">Gateway Reference:</span>
+                <span class="v tabular-nums" id="modalGatewayRef">txn_live_94827104928</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: AI INFERENCE METRICS -->
+          <div class="modal-section-card">
+            <h4 class="modal-section-heading">AI Reasoning Model</h4>
+            
+            <div class="ai-confidence-meter-box">
+              <div class="confidence-header">
+                <span>Recovery Probability Score</span>
+                <span class="confidence-number emerald" id="modalConfidence">94%</span>
+              </div>
+              <div class="meter-bar-track">
+                <div class="meter-bar-fill" id="modalConfidenceBar" style="width: 94%;"></div>
+              </div>
+            </div>
+
+            <div class="reasoning-box">
+              <span class="reasoning-title">Inference Rationale:</span>
+              <p class="reasoning-body" id="modalRationale">
+                Error code 104 indicates transient liquidity deficit. Merchant payroll heuristic indicates 91% of failed subscription renewals for this cohort clear when retried between 08:00 AM &ndash; 09:30 AM IST.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- EXECUTION TIMELINE -->
+        <div class="modal-timeline-section">
+          <h4 class="modal-section-heading">Recovery Timeline &amp; Event Sequence</h4>
+          <div class="modal-timeline" id="modalTimeline">
+            <!-- Timeline items rendered dynamically -->
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <div class="modal-footer-left">
+          <span class="synthetic-watermark">All identities and transaction IDs are synthetic demonstrations</span>
+        </div>
+        <div class="modal-footer-right">
+          <button class="btn-modal-secondary" id="modalDismissBtn">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 2: RUN AI RECOVERY SIMULATION MODAL ================= -->
+  <div class="modal-overlay" id="recoveryRunModalOverlay" aria-hidden="true">
+    <div class="modal-container run-recovery-modal" role="dialog" aria-modal="true">
+      
+      <!-- STATE 1: SCANNING / ANALYZING -->
+      <div class="run-state" id="runStateAnalyzing">
+        <div class="scanner-header">
+          <div class="ai-pulse-spinner">
+            <div class="spinner-ring"></div>
+            <div class="spinner-core">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+            </div>
+          </div>
+          <h3 class="run-title">Analyzing at-risk payments...</h3>
+          <p class="run-subtitle">Evaluating 24 failed payment attempts against issuer telemetry and predictive liquidity models</p>
+        </div>
+
+        <div class="progress-bar-container">
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="runProgressBar"></div>
+          </div>
+          <div class="progress-steps-log" id="runStepsLog">
+            <div class="log-line active">&bull; Ingesting bank decline codes from Razorpay &amp; UPI hub...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATE 2: COMPLETE -->
+      <div class="run-state" id="runStateComplete" style="display:none;">
+        <div class="complete-header">
+          <div class="complete-check-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <h3 class="run-title">Recovery analysis complete</h3>
+          <p class="run-subtitle">Autonomous smart retry sequence executed across high-confidence failure cohorts</p>
+        </div>
+
+        <div class="run-results-grid">
+          <div class="result-box">
+            <span class="res-num text-emerald">+&#8377;1,42,000</span>
+            <span class="res-label">Recovered Instantly</span>
+          </div>
+          <div class="result-box">
+            <span class="res-num">6 / 24</span>
+            <span class="res-label">Immediate Settlements</span>
+          </div>
+          <div class="result-box">
+            <span class="res-num">14</span>
+            <span class="res-label">Retries Scheduled</span>
+          </div>
+        </div>
+
+        <div class="run-action-footer">
+          <button class="btn-primary-action" id="btnFinishRun">
+            <span>Apply Results to Dashboard &rarr;</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div class="toast-shelf" id="toastShelf"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
