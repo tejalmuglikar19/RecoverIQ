@@ -11,7 +11,245 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body class="theme-dark">
-  <div class="app-layout">
+
+  <!-- ================= AUTHENTICATION / ENTRY SCREEN ================= -->
+  <div id="authScreen" class="auth-screen">
+    <div class="auth-container">
+      
+      <!-- LEFT COLUMN: BRANDING & HOW RECOVERIQ WORKS -->
+      <div class="auth-brand-col">
+        <div class="auth-brand-header">
+          <div class="brand-lockup">
+            <div class="brand-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <polyline points="1 20 1 14 7 14"></polyline>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+              </svg>
+            </div>
+            <div class="brand-text">
+              <span class="brand-title">Recover<strong>IQ</strong></span>
+              <span class="brand-tagline">Revenue Intelligence</span>
+            </div>
+          </div>
+          <div class="badge-demo-mode">
+            <span class="demo-indicator-dot"></span>
+            <span>DEMO MODE &bull; Synthetic Data</span>
+          </div>
+        </div>
+
+        <div class="auth-hero-copy">
+          <h1 class="auth-headline">Recover Revenue Before It's Lost.</h1>
+          <p class="auth-subheadline">
+            Find payments that can still be recovered, choose the right action automatically, and track the revenue you get back.
+          </p>
+        </div>
+
+        <!-- VISUAL NARRATIVE CARD -->
+        <div class="auth-visual-card">
+          <div class="auth-visual-title">How RecoverIQ Works</div>
+          <div class="auth-flow-steps">
+            <div class="auth-flow-item">
+              <span class="flow-dot flow-risk"></span>
+              <div class="flow-text">
+                <strong class="flow-step-title">&#8377; Revenue at Risk</strong>
+                <span class="flow-step-desc">Failed customer payments detected instantly</span>
+              </div>
+            </div>
+            <div class="auth-flow-connector">&darr;</div>
+            <div class="auth-flow-item">
+              <span class="flow-dot flow-ai"></span>
+              <div class="flow-text">
+                <strong class="flow-step-title">AI Decision</strong>
+                <span class="flow-step-desc">Identifies temporary bank glitches vs true declines</span>
+              </div>
+            </div>
+            <div class="auth-flow-connector">&darr;</div>
+            <div class="auth-flow-item">
+              <span class="flow-dot flow-action"></span>
+              <div class="flow-text">
+                <strong class="flow-step-title">Recovery Action</strong>
+                <span class="flow-step-desc">Smart retries scheduled according to your merchant rules</span>
+              </div>
+            </div>
+            <div class="auth-flow-connector">&darr;</div>
+            <div class="auth-flow-item active">
+              <span class="flow-dot flow-recovered"></span>
+              <div class="flow-text">
+                <strong class="flow-step-title text-emerald">&#8377; Revenue Recovered</strong>
+                <span class="flow-step-desc">Funds deposited straight into your merchant bank account</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TRUST HIGHLIGHTS -->
+        <div class="auth-trust-bar">
+          <div class="trust-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            <span>Bank-grade 256-bit encryption</span>
+          </div>
+          <div class="trust-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            <span>Safe, read-only webhook signals</span>
+          </div>
+          <div class="trust-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg>
+            <span>No payment credentials stored</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: SIGN IN / SIGN UP FORM -->
+      <div class="auth-form-col">
+        <div class="auth-form-box">
+
+          <!-- 7. DEMO LOGIN BANNER -->
+          <div class="auth-demo-banner">
+            <div class="demo-banner-content">
+              <div class="demo-banner-title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                <span>Want to test the platform first?</span>
+              </div>
+              <p class="demo-banner-sub">Try RecoverIQ with synthetic payment data. No real payment information is used.</p>
+            </div>
+            <button class="btn-demo-entry" id="btnExploreDemoQuick" type="button">
+              <span>Explore Demo &rarr;</span>
+            </button>
+          </div>
+
+          <!-- AUTH TABS -->
+          <div class="auth-tabs" role="tablist">
+            <button class="auth-tab active" id="tabSignIn" role="tab" aria-selected="true">Sign In</button>
+            <button class="auth-tab" id="tabSignUp" role="tab" aria-selected="false">Create Account</button>
+          </div>
+
+          <!-- 5. SIGN IN FORM -->
+          <div class="auth-form-view" id="formViewSignIn">
+            <div class="auth-form-header">
+              <h2 class="form-view-title">Welcome back</h2>
+              <p class="form-view-sub">Sign in to your RecoverIQ account.</p>
+            </div>
+
+            <form id="signInForm" class="auth-fields-form">
+              <div class="form-group">
+                <label class="form-label" for="loginEmail">Email</label>
+                <input type="email" id="loginEmail" class="form-input" placeholder="you@company.com" value="merchant@demo.recoveriq.com" required>
+              </div>
+
+              <div class="form-group">
+                <div class="form-label-row">
+                  <label class="form-label" for="loginPassword">Password</label>
+                  <button type="button" class="form-link-sm" id="btnForgotPassword">Forgot password?</button>
+                </div>
+                <input type="password" id="loginPassword" class="form-input" placeholder="Enter your password" value="demopassword123" required>
+              </div>
+
+              <div class="form-checkbox-row">
+                <label class="checkbox-container">
+                  <input type="checkbox" id="rememberMe" checked>
+                  <span class="checkbox-custom"></span>
+                  <span class="checkbox-label">Remember me</span>
+                </label>
+              </div>
+
+              <button type="submit" class="btn-primary-action btn-auth-submit" id="btnSignInSubmit">
+                <span>Sign In &rarr;</span>
+              </button>
+            </form>
+
+            <div class="auth-divider">
+              <span>OR</span>
+            </div>
+
+            <button type="button" class="btn-google-auth" id="btnGoogleSignIn">
+              <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+              <span>Continue with Google</span>
+            </button>
+
+            <div class="auth-switch-prompt">
+              <span>Don't have an account?</span>
+              <button type="button" class="auth-switch-link" id="linkToSignUp">Create one</button>
+            </div>
+          </div>
+
+          <!-- 6. SIGN UP FORM -->
+          <div class="auth-form-view" id="formViewSignUp" style="display: none;">
+            <div class="auth-form-header">
+              <h2 class="form-view-title">Create your RecoverIQ account</h2>
+              <p class="form-view-sub">Set up your merchant account and start finding recovery opportunities.</p>
+            </div>
+
+            <form id="signUpForm" class="auth-fields-form">
+              <div class="form-group">
+                <label class="form-label" for="signupName">Full Name</label>
+                <input type="text" id="signupName" class="form-input" placeholder="e.g. Rahul Sharma" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="signupBusiness">Business / Company Name</label>
+                <input type="text" id="signupBusiness" class="form-input" placeholder="e.g. Acme Stores" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="signupEmail">Business Email</label>
+                <input type="email" id="signupEmail" class="form-input" placeholder="you@company.com" required>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="signupPassword">Password</label>
+                  <input type="password" id="signupPassword" class="form-input" placeholder="Enter password" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="signupConfirmPassword">Confirm Password</label>
+                  <input type="password" id="signupConfirmPassword" class="form-input" placeholder="Re-enter password" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="signupIndustry">Industry <span class="text-muted-opt">(Optional)</span></label>
+                <select id="signupIndustry" class="form-input clean-select">
+                  <option value="E-commerce" selected>E-commerce / D2C</option>
+                  <option value="SaaS & Subscription">SaaS &amp; Subscription</option>
+                  <option value="EdTech">EdTech &amp; Digital Learning</option>
+                  <option value="Financial Services">Financial Services</option>
+                  <option value="Other">Other Merchant Business</option>
+                </select>
+              </div>
+
+              <button type="submit" class="btn-primary-action btn-auth-submit" id="btnSignUpSubmit">
+                <span>Create Account &rarr;</span>
+              </button>
+            </form>
+
+            <div class="auth-divider">
+              <span>OR</span>
+            </div>
+
+            <button type="button" class="btn-google-auth" id="btnGoogleSignUp">
+              <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+              <span>Continue with Google</span>
+            </button>
+
+            <p class="auth-terms-note">
+              By creating an account, you agree to our <a href="#" onclick="return false;">Terms</a> and <a href="#" onclick="return false;">Privacy Policy</a>.
+            </p>
+
+            <div class="auth-switch-prompt">
+              <span>Already have an account?</span>
+              <button type="button" class="auth-switch-link" id="linkToSignIn">Sign In</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= MAIN MERCHANT APPLICATION DASHBOARD ================= -->
+  <div class="app-layout" id="appScreen" style="display: none;">
     
     <!-- MOBILE TOP BAR (Hidden on desktop) -->
     <header class="mobile-nav-bar" id="mobileNavBar">
@@ -119,15 +357,6 @@
       <div class="sidebar-footer">
         <ul class="nav-list footer-nav">
           <li class="nav-item">
-            <button class="nav-link" data-view="profile">
-              <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-              <span class="nav-label">Profile</span>
-            </button>
-          </li>
-          <li class="nav-item">
             <button class="nav-link" data-view="settings">
               <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="3"></circle>
@@ -139,13 +368,13 @@
         </ul>
 
         <!-- MERCHANT PROFILE AREA -->
-        <div class="merchant-profile-card clickable-profile" data-view="profile" role="button" tabindex="0" title="View Merchant Profile">
+        <div class="merchant-profile-card clickable-profile" id="sidebarMerchantProfile" role="button" tabindex="0" title="Click to view Merchant Profile" aria-label="Open Merchant Profile">
           <div class="merchant-avatar">
-            <span>DM</span>
+            <span id="sidebarMerchantAvatar">DM</span>
           </div>
           <div class="merchant-info">
-            <div class="merchant-name">Demo Merchant</div>
-            <div class="merchant-tier">Enterprise &bull; MER_DEMO_48291</div>
+            <div class="merchant-name" id="sidebarMerchantNameDisplay">Demo Merchant</div>
+            <div class="merchant-email" id="sidebarMerchantEmailDisplay">merchant@demo.recoveriq.com</div>
           </div>
           <div class="merchant-status-dot" title="Active Connection"></div>
         </div>
@@ -199,12 +428,6 @@
               </svg>
             </span>
             <span>Run AI Recovery &rarr;</span>
-          </button>
-
-          <!-- TOP-RIGHT PROFILE AVATAR BUTTON -->
-          <button class="header-profile-btn" data-view="profile" id="headerProfileBtn" title="Merchant Profile" aria-label="Open Merchant Profile">
-            <div class="header-avatar-badge">DM</div>
-            <span class="header-profile-status-dot"></span>
           </button>
         </div>
       </header>
@@ -261,6 +484,7 @@
               <div class="kpi-value-row">
                 <span class="kpi-value" id="valRevenueAtRisk">&#8377;12.8L</span>
               </div>
+              <p class="kpi-explainer">Money from payments that may still be recovered.</p>
               <div class="kpi-footer">
                 <span class="kpi-trend trend-down-good">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -283,6 +507,7 @@
               <div class="kpi-value-row">
                 <span class="kpi-value emerald-accent" id="valRevenueRecovered">&#8377;8.4L</span>
               </div>
+              <p class="kpi-explainer">Money successfully brought back to your account.</p>
               <div class="kpi-footer">
                 <span class="kpi-trend trend-up-success">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
@@ -306,6 +531,7 @@
               <div class="kpi-value-row">
                 <span class="kpi-value" id="valRecoveryRate">65.6%</span>
               </div>
+              <p class="kpi-explainer">Percentage of at-risk payments successfully collected.</p>
               <div class="kpi-footer">
                 <span class="kpi-trend trend-up-success">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
@@ -329,9 +555,13 @@
               <div class="kpi-value-row">
                 <span class="kpi-value" id="valRecoveryRoi">2.8&times;</span>
               </div>
+              <p class="kpi-explainer">Return on recovery effort vs cost (Target: 1.5&times;).</p>
               <div class="kpi-footer">
-                <span class="kpi-indicator-pill">Target &ge; 1.5&times;</span>
-                <span class="kpi-supporting-text">Above 1.5&times; target</span>
+                <span class="kpi-trend trend-up-success">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                  <span>Target: &ge;1.5&times;</span>
+                </span>
+                <span class="kpi-supporting-text">highly efficient</span>
               </div>
             </div>
 
@@ -452,22 +682,22 @@
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                       <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                     </svg>
-                    <span>AI Analysis</span>
+                    <span>AI Recommendation</span>
                   </div>
-                  <span class="ai-confidence-pill">Confidence 94%</span>
+                  <span class="ai-confidence-pill">Recovery Chance: 94%</span>
                 </div>
 
                 <h3 class="ai-insight-headline">
-                  Temporary failures represent the largest recovery opportunity.
+                  Temporary bank glitches represent your largest recovery opportunity.
                 </h3>
 
                 <p class="ai-insight-body">
-                  68% of current revenue at risk is associated with temporary payment failures. 14 payments have a high probability of successful recovery through a single retry.
+                  68% of failed payments are temporary glitches (like bank network timeouts or salary deposit delays). RecoverIQ can recover 14 payments automatically through a single smart retry.
                 </p>
 
                 <div class="ai-insight-footer">
                   <button class="btn-insight-action" id="btnViewQueueFromInsight">
-                    <span>View Recovery Queue &rarr;</span>
+                    <span>View Recovery Queue (24 Ready) &rarr;</span>
                   </button>
                 </div>
               </div>
@@ -475,7 +705,10 @@
               <!-- 5. RECOVERY STATUS COMPACT CARD -->
               <div class="dashboard-card status-card">
                 <div class="card-header-simple">
-                  <h3 class="card-title-sm">Recovery Status</h3>
+                  <div>
+                    <h3 class="card-title-sm">Recovery Status</h3>
+                    <p class="card-hint-sm">Current pipeline of all 90 tracked payments</p>
+                  </div>
                   <span class="total-status-count" id="totalActiveCount">90 Total</span>
                 </div>
 
@@ -490,42 +723,57 @@
 
                 <!-- Status Rows -->
                 <div class="status-list">
-                  <div class="status-row" data-filter="ready">
+                  <div class="status-row" data-filter="ready" title="Click to view Ready payments in Queue">
                     <div class="status-row-left">
                       <span class="status-indicator-dot dot-ready"></span>
-                      <span class="status-name">Ready for Recovery</span>
+                      <div class="status-name-group">
+                        <span class="status-name">Ready for Recovery</span>
+                        <span class="status-sub-hint">Waiting for next smart attempt</span>
+                      </div>
                     </div>
                     <span class="status-count-val" id="cntReady">24</span>
                   </div>
 
-                  <div class="status-row" data-filter="progress">
+                  <div class="status-row" data-filter="progress" title="Click to view In Progress payments in Queue">
                     <div class="status-row-left">
                       <span class="status-indicator-dot dot-progress"></span>
-                      <span class="status-name">In Progress</span>
+                      <div class="status-name-group">
+                        <span class="status-name">In Progress</span>
+                        <span class="status-sub-hint">Active retry cadence scheduled</span>
+                      </div>
                     </div>
                     <span class="status-count-val" id="cntProgress">8</span>
                   </div>
 
-                  <div class="status-row" data-filter="recovered">
+                  <div class="status-row" data-filter="recovered" title="Click to view Recovered payments in Queue">
                     <div class="status-row-left">
                       <span class="status-indicator-dot dot-recovered"></span>
-                      <span class="status-name text-emerald">Recovered</span>
+                      <div class="status-name-group">
+                        <span class="status-name text-emerald">Recovered</span>
+                        <span class="status-sub-hint">Money deposited to your bank</span>
+                      </div>
                     </div>
                     <span class="status-count-val emerald-num" id="cntRecovered">42</span>
                   </div>
 
-                  <div class="status-row" data-filter="escalated">
+                  <div class="status-row" data-filter="escalated" title="Click to view Escalated payments in Queue">
                     <div class="status-row-left">
                       <span class="status-indicator-dot dot-escalated"></span>
-                      <span class="status-name">Escalated</span>
+                      <div class="status-name-group">
+                        <span class="status-name">Escalated</span>
+                        <span class="status-sub-hint">Requires merchant review</span>
+                      </div>
                     </div>
                     <span class="status-count-val" id="cntEscalated">5</span>
                   </div>
 
-                  <div class="status-row" data-filter="stopped">
+                  <div class="status-row" data-filter="stopped" title="Click to view Stopped payments in Queue">
                     <div class="status-row-left">
                       <span class="status-indicator-dot dot-stopped"></span>
-                      <span class="status-name">Stopped</span>
+                      <div class="status-name-group">
+                        <span class="status-name">Stopped</span>
+                        <span class="status-sub-hint">Halted to prevent fees or fraud</span>
+                      </div>
                     </div>
                     <span class="status-count-val" id="cntStopped">11</span>
                   </div>
@@ -544,7 +792,7 @@
                 <p class="card-subtitle">Real-time payment failure recovery outcomes and AI decisions</p>
               </div>
               <div class="table-actions">
-                <span class="table-hint">Click any Payment ID to inspect AI Decision</span>
+                <span class="table-hint">Click any row or Payment ID to see why it failed &amp; how it was recovered</span>
               </div>
             </div>
 
@@ -553,12 +801,12 @@
               <table class="fintech-table" id="recentActivityTable">
                 <thead>
                   <tr>
-                    <th class="th-payment">Payment</th>
+                    <th class="th-payment">Payment ID</th>
                     <th class="th-amount text-right">Amount</th>
-                    <th class="th-failure">Failure</th>
-                    <th class="th-action">Action</th>
+                    <th class="th-failure">Why the Payment Failed</th>
+                    <th class="th-action">Recommended Action</th>
                     <th class="th-outcome">Outcome</th>
-                    <th class="th-inspect text-right">Decision</th>
+                    <th class="th-inspect text-right">Decision Details</th>
                   </tr>
                 </thead>
                 <tbody id="recentActivityTbody">
@@ -744,11 +992,11 @@
                     <th>Payment ID</th>
                     <th>Created</th>
                     <th class="text-right">Amount</th>
-                    <th>Gateway Error</th>
-                    <th>AI Confidence</th>
+                    <th>Why the Payment Failed</th>
+                    <th>Chance of Recovery</th>
                     <th>Recommended Action</th>
-                    <th>Status</th>
-                    <th class="text-right">Decision Details</th>
+                    <th>Outcome</th>
+                    <th class="text-right">Action / Details</th>
                   </tr>
                 </thead>
                 <tbody id="queueTableBody">
@@ -860,11 +1108,11 @@
           <div class="dashboard-card">
             <div class="card-header-flex">
               <div>
-                <h2 class="card-title">AI Recovery Policies</h2>
-                <p class="card-subtitle">Configure automated intelligence thresholds, retry limits, and safety rails</p>
+                <h2 class="card-title">Merchant Rules (Recovery Policies)</h2>
+                <p class="card-subtitle">Set clear guidelines for how RecoverIQ automatically recovers payments or asks for your review</p>
               </div>
               <button class="btn-primary-action btn-sm" id="btnSavePolicies">
-                <span>Save Policy Config</span>
+                <span>Save Merchant Rules</span>
               </button>
             </div>
 
@@ -1256,7 +1504,7 @@
     <div class="modal-container decision-modal" role="dialog" aria-modal="true" aria-labelledby="modalPaymentId">
       <div class="modal-header">
         <div class="modal-title-lockup">
-          <span class="modal-badge-ai">AI Decision Engine</span>
+          <span class="modal-badge-ai">Smart Recovery Action</span>
           <h3 class="modal-title" id="modalPaymentId">#pay_48291</h3>
           <span class="modal-amount" id="modalAmount">&#8377;24,500</span>
         </div>
@@ -1284,10 +1532,10 @@
           
           <!-- LEFT: TRANSACTION METADATA -->
           <div class="modal-section-card">
-            <h4 class="modal-section-heading">Transaction Profile</h4>
+            <h4 class="modal-section-heading">Payment Details</h4>
             <div class="meta-kv-list">
               <div class="meta-kv">
-                <span class="k">Customer Profile:</span>
+                <span class="k">Customer:</span>
                 <span class="v" id="modalCustomer">Synthetic User (cust_82910)</span>
               </div>
               <div class="meta-kv">
@@ -1295,7 +1543,7 @@
                 <span class="v" id="modalMethod">HDFC Bank UPI AutoPay</span>
               </div>
               <div class="meta-kv">
-                <span class="k">Primary Failure Code:</span>
+                <span class="k">Why Payment Failed:</span>
                 <span class="v" id="modalErrorCode">ERR_INSUFFICIENT_FUNDS (104)</span>
               </div>
               <div class="meta-kv">
@@ -1311,11 +1559,11 @@
 
           <!-- RIGHT: AI INFERENCE METRICS -->
           <div class="modal-section-card">
-            <h4 class="modal-section-heading">AI Reasoning Model</h4>
+            <h4 class="modal-section-heading">Why RecoverIQ Took This Action</h4>
             
             <div class="ai-confidence-meter-box">
               <div class="confidence-header">
-                <span>Recovery Probability Score</span>
+                <span>Chance of Recovery</span>
                 <span class="confidence-number emerald" id="modalConfidence">94%</span>
               </div>
               <div class="meter-bar-track">
@@ -1324,7 +1572,7 @@
             </div>
 
             <div class="reasoning-box">
-              <span class="reasoning-title">Inference Rationale:</span>
+              <span class="reasoning-title">Recommended Action &amp; Rationale:</span>
               <p class="reasoning-body" id="modalRationale">
                 Error code 104 indicates transient liquidity deficit. Merchant payroll heuristic indicates 91% of failed subscription renewals for this cohort clear when retried between 08:00 AM &ndash; 09:30 AM IST.
               </p>

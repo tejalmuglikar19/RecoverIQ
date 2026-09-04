@@ -374,6 +374,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    // Highlight sidebar merchant profile area when in profile view
+    const sidebarMerchantProfile = document.getElementById('sidebarMerchantProfile');
+    if (sidebarMerchantProfile) {
+      if (viewKey === 'profile') {
+        sidebarMerchantProfile.classList.add('active');
+      } else {
+        sidebarMerchantProfile.classList.remove('active');
+      }
+    }
+
     // Update active view panel
     viewPanels.forEach(panel => {
       if (panel.id === `view-${viewKey}`) {
@@ -411,16 +421,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Top-right profile avatar button & sidebar profile card
-  const headerProfileBtn = document.getElementById('headerProfileBtn');
-  if (headerProfileBtn) {
-    headerProfileBtn.addEventListener('click', () => switchView('profile'));
+  // Single dedicated merchant profile entrypoint (sidebar bottom card)
+  const sidebarMerchantProfile = document.getElementById('sidebarMerchantProfile');
+  if (sidebarMerchantProfile) {
+    sidebarMerchantProfile.addEventListener('click', () => switchView('profile'));
   }
 
-  const merchantProfileCard = document.querySelector('.merchant-profile-card');
-  if (merchantProfileCard) {
-    merchantProfileCard.addEventListener('click', () => switchView('profile'));
-  }
+  // Any other merchant avatar or name clicked across the app
+  document.querySelectorAll('.clickable-profile').forEach(el => {
+    el.addEventListener('click', () => switchView('profile'));
+  });
 
   // Action button inside AI Recovery Insight card: "View Recovery Queue →"
   const btnViewQueueFromInsight = document.getElementById('btnViewQueueFromInsight');
@@ -809,7 +819,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </td>
           <td class="text-right">
             <button class="btn-secondary-action btn-sm" onclick="event.stopPropagation(); window.openModalFor('${item.id}')">
-              Inspect &rarr;
+              Details &rarr;
             </button>
           </td>
         </tr>
@@ -1203,9 +1213,211 @@ document.addEventListener('DOMContentLoaded', () => {
     if (signOutConfirmBtn) {
       signOutConfirmBtn.addEventListener('click', () => {
         closeSignOutModal();
-        showToast('Signed out of merchant session. Returning to overview...');
-        setTimeout(() => switchView('overview'), 800);
+        showToast('Signed out of merchant session. Returning to welcome screen...');
+        setTimeout(() => {
+          if (window.exitToAuthScreen) {
+            window.exitToAuthScreen();
+          } else {
+            switchView('overview');
+          }
+        }, 500);
       });
     }
   }
+
+  // =========================================================================
+  // 12. AUTHENTICATION & ENTRY FLOW CONTROLLER
+  // =========================================================================
+
+  function initAuthFlow() {
+    const authScreen = document.getElementById('authScreen');
+    const appScreen = document.getElementById('appScreen');
+
+    const tabSignIn = document.getElementById('tabSignIn');
+    const tabSignUp = document.getElementById('tabSignUp');
+    const formViewSignIn = document.getElementById('formViewSignIn');
+    const formViewSignUp = document.getElementById('formViewSignUp');
+
+    const linkToSignUp = document.getElementById('linkToSignUp');
+    const linkToSignIn = document.getElementById('linkToSignIn');
+
+    const signInForm = document.getElementById('signInForm');
+    const signUpForm = document.getElementById('signUpForm');
+    const btnExploreDemoQuick = document.getElementById('btnExploreDemoQuick');
+    const btnGoogleSignIn = document.getElementById('btnGoogleSignIn');
+    const btnGoogleSignUp = document.getElementById('btnGoogleSignUp');
+    const btnForgotPassword = document.getElementById('btnForgotPassword');
+
+    function showSignInTab() {
+      if (tabSignIn && tabSignUp && formViewSignIn && formViewSignUp) {
+        tabSignIn.classList.add('active');
+        tabSignIn.setAttribute('aria-selected', 'true');
+        tabSignUp.classList.remove('active');
+        tabSignUp.setAttribute('aria-selected', 'false');
+        formViewSignIn.style.display = 'block';
+        formViewSignUp.style.display = 'none';
+      }
+    }
+
+    function showSignUpTab() {
+      if (tabSignIn && tabSignUp && formViewSignIn && formViewSignUp) {
+        tabSignUp.classList.add('active');
+        tabSignUp.setAttribute('aria-selected', 'true');
+        tabSignIn.classList.remove('active');
+        tabSignIn.setAttribute('aria-selected', 'false');
+        formViewSignUp.style.display = 'block';
+        formViewSignIn.style.display = 'none';
+      }
+    }
+
+    if (tabSignIn) tabSignIn.addEventListener('click', showSignInTab);
+    if (tabSignUp) tabSignUp.addEventListener('click', showSignUpTab);
+    if (linkToSignUp) linkToSignUp.addEventListener('click', showSignUpTab);
+    if (linkToSignIn) linkToSignIn.addEventListener('click', showSignInTab);
+
+    function enterDashboard(merchantName = 'Demo Merchant', merchantEmail = 'merchant@demo.recoveriq.com', targetView = null, immediate = false) {
+      // Update merchant identity in sidebar and profile
+      const sidebarName = document.getElementById('sidebarMerchantNameDisplay');
+      const sidebarEmail = document.getElementById('sidebarMerchantEmailDisplay');
+      const sidebarAvatar = document.getElementById('sidebarMerchantAvatar');
+      const heroName = document.getElementById('displayBusinessNameHero');
+      const heroEmail = document.getElementById('displayEmailHero');
+      const fieldName = document.getElementById('fieldBusinessName');
+      const fieldEmail = document.getElementById('fieldEmail');
+
+      if (sidebarName) sidebarName.textContent = merchantName;
+      if (sidebarEmail) sidebarEmail.textContent = merchantEmail;
+      if (sidebarAvatar) {
+        const initials = merchantName.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase() || 'DM';
+        sidebarAvatar.textContent = initials;
+      }
+      if (heroName) heroName.textContent = merchantName;
+      if (heroEmail) {
+        heroEmail.textContent = merchantEmail;
+        heroEmail.href = `mailto:${merchantEmail}`;
+      }
+      if (fieldName) fieldName.textContent = merchantName;
+      if (fieldEmail) fieldEmail.textContent = merchantEmail;
+
+      const viewToSwitch = targetView || (window.location.hash.startsWith('#view=') ? window.location.hash.replace('#view=', '') : 'overview');
+
+      if (immediate) {
+        if (authScreen) authScreen.style.display = 'none';
+        if (appScreen) {
+          appScreen.style.display = 'flex';
+          appScreen.style.opacity = '1';
+        }
+        switchView(viewToSwitch);
+        renderPerformanceChart(CHART_DATA_30D);
+        return;
+      }
+
+      // Transition screen
+      if (authScreen && appScreen) {
+        authScreen.style.opacity = '0';
+        authScreen.style.transition = 'opacity 0.25s ease';
+        setTimeout(() => {
+          authScreen.style.display = 'none';
+          appScreen.style.display = 'flex';
+          appScreen.style.opacity = '0';
+          setTimeout(() => {
+            appScreen.style.opacity = '1';
+            appScreen.style.transition = 'opacity 0.25s ease';
+            switchView(viewToSwitch);
+            renderPerformanceChart(CHART_DATA_30D);
+          }, 30);
+        }, 220);
+      }
+    }
+
+    function exitToAuth() {
+      if (authScreen && appScreen) {
+        appScreen.style.opacity = '0';
+        appScreen.style.transition = 'opacity 0.25s ease';
+        setTimeout(() => {
+          appScreen.style.display = 'none';
+          authScreen.style.display = 'flex';
+          authScreen.style.opacity = '0';
+          setTimeout(() => {
+            authScreen.style.opacity = '1';
+            authScreen.style.transition = 'opacity 0.25s ease';
+            showSignInTab();
+          }, 30);
+        }, 220);
+      }
+    }
+
+    window.exitToAuthScreen = exitToAuth;
+    window.enterDashboardDirect = enterDashboard;
+
+    // Explore Demo quick entry
+    if (btnExploreDemoQuick) {
+      btnExploreDemoQuick.addEventListener('click', () => {
+        showToast('Entering RecoverIQ Demo environment with synthetic data...');
+        enterDashboard('Demo Merchant', 'merchant@demo.recoveriq.com', 'overview');
+      });
+    }
+
+    // Sign In form submit
+    if (signInForm) {
+      signInForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value.trim();
+        const mName = email.includes('demo') ? 'Demo Merchant' : email.split('@')[0].replace('.', ' ').toUpperCase();
+        showToast(`✓ Welcome back! Signed in as ${mName}.`);
+        enterDashboard(mName, email, 'overview');
+      });
+    }
+
+    // Sign Up form submit
+    if (signUpForm) {
+      signUpForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const companyName = document.getElementById('signupBusiness').value.trim();
+        const email = document.getElementById('signupEmail').value.trim();
+        const pass = document.getElementById('signupPassword').value;
+        const confirmPass = document.getElementById('signupConfirmPassword').value;
+
+        if (pass !== confirmPass) {
+          showToast('Passwords do not match. Please re-enter.');
+          return;
+        }
+
+        showToast(`✓ Account created! Welcome to RecoverIQ, ${companyName}.`);
+        enterDashboard(companyName, email, 'overview');
+      });
+    }
+
+    // Google Sign-In simulations
+    if (btnGoogleSignIn) {
+      btnGoogleSignIn.addEventListener('click', () => {
+        showToast('✓ Google Workspace SSO verified.');
+        enterDashboard('Demo Merchant', 'merchant@demo.recoveriq.com', 'overview');
+      });
+    }
+    if (btnGoogleSignUp) {
+      btnGoogleSignUp.addEventListener('click', () => {
+        showToast('✓ Google Workspace SSO verified.');
+        enterDashboard('Demo Merchant', 'merchant@demo.recoveriq.com', 'overview');
+      });
+    }
+
+    if (btnForgotPassword) {
+      btnForgotPassword.addEventListener('click', () => {
+        showToast('Password reset instructions sent to your registered merchant email.');
+      });
+    }
+
+    // If deep link in hash (e.g. #view=queue or #view=profile), automatically enter dashboard
+    const hash = window.location.hash;
+    if (hash === '#signup') {
+      showSignUpTab();
+    } else if (hash && (hash.startsWith('#view=') || hash.startsWith('#modal='))) {
+      const targetV = hash.startsWith('#view=') ? hash.replace('#view=', '') : 'overview';
+      enterDashboard('Demo Merchant', 'merchant@demo.recoveriq.com', targetV, true);
+    }
+  }
+
+  // Initialize Authentication Flow
+  initAuthFlow();
 });
